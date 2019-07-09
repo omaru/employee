@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toSet;
+
 public final class EmployeeUtil {
 
     private EmployeeUtil() {
@@ -21,9 +23,12 @@ public final class EmployeeUtil {
                 getEmployee("e"),
                 getEmployee("f",false),
                 getEmployee("g",false),
-                getEmployee("h",false)).collect(Collectors.toSet());
+                getEmployee("h",false)).collect(toSet());
     }
 
+    public static Collection<Employee> getActiveEmployees(){
+        return getEmployees().stream().filter(e->e.isActive()).collect(toSet());
+    }
     private static Employee getEmployee(String name, boolean active){
         Employee employee = getEmployee(name);
         employee.setActive(active);

@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> {
     Iterable<Employee> findByIdIn(Collection<Long> ids);
-    Iterable<Employee> findByNameContaining(String name);
+    Collection<Employee> findByNameContaining(String name);
     Optional<Employee> findByIdAndActiveTrue(Long id);
     Collection<Employee> findByActive(boolean active);
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.Optional;
+
 @Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -30,6 +32,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findByIdAndActiveTrue(employeeId).orElseThrow(()->
                 new NotFoundException("employee "+employeeId+ "not found"));
     }
+
+    @Override
+    public Collection<Employee> get(String name) {
+        return employeeRepository.findByNameContaining(name);
+    }
+
     @Override
     public Collection<Employee> get(Boolean active) {
         return employeeRepository.findByActive(active);
@@ -41,9 +49,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void delete(Employee employee) {
-        employee.setActive(false);
-        update(employee);
+    public void delete(Long id) {
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if(!employee.isPresent()){
+            return;
+        }
+        employee.get().setActive(false);
+        update(employee.get());
     }
 
     @Override

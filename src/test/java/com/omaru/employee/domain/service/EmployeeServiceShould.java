@@ -41,21 +41,23 @@ public class EmployeeServiceShould {
 
     @Test
     public void beAbleToRetrieveEmployeesByActiveStatus(){
-        Boolean activeEmployees = true;
-        Collection<Employee> employees = employeeService.get(activeEmployees);
-        long totalActiveEmployees = employees.stream().filter(e->e.isActive()).count();
-        assertThat(totalActiveEmployees).isEqualTo(5L);
+        String employeeName = "a";
+        Collection<Employee> employees = employeeService.get(employeeName);
+        assertThat(employees).hasSize(1);
     }
 
     @Test
     public void beAbleToRetrieveEmployeesByInactiveStatus(){
         Boolean activeEmployees = false;
         Collection<Employee> employees = employeeService.get(activeEmployees);
-        assertThat(employees).isNotEmpty();
-        long totalActiveEmployees = employees.stream().filter(e->e.isActive()==activeEmployees).count();
-        assertThat(totalActiveEmployees).isEqualTo(3L);
+        assertThat(employees).hasSize(3);
     }
-
+    @Test
+    public void beAbleToRetrieveEmployeesByName(){
+        Boolean activeEmployees = false;
+        Collection<Employee> employees = employeeService.get(activeEmployees);
+        assertThat(employees).hasSize(3);
+    }
     @Test(expected = NotFoundException.class)
     public void whenNoEmployeeFoundThrowNotFoundException(){
         long nonExistentEmployeeId = -789789L;
@@ -66,7 +68,7 @@ public class EmployeeServiceShould {
     public void beAbleToLogicalDeleteAnEmployee(){
         Collection<Employee> employees = employeeService.get();
         Employee employee = employees.iterator().next();
-        employeeService.delete(employee);
+        employeeService.delete(employee.getId());
         employeeService.get(employee.getId());
     }
 }
