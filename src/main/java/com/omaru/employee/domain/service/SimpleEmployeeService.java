@@ -11,13 +11,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service("employeeService")
-public class EmployeeServiceImpl implements EmployeeService {
+public class SimpleEmployeeService implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
 
     @Inject
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository,DepartmentRepository departmentRepository){
+    public SimpleEmployeeService(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository){
         this.employeeRepository = employeeRepository;
         this.departmentRepository = departmentRepository;
     }
@@ -41,6 +41,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Collection<Employee> get(Boolean active) {
         return employeeRepository.findByActive(active);
+    }
+
+    @Override
+    public Collection<Employee> getByDepartment(Long id) {
+        return departmentRepository.findById(id).get().getEmployees();
     }
 
     @Override

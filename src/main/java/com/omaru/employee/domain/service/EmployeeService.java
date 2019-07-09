@@ -9,6 +9,7 @@ public interface EmployeeService {
     Employee get(Long employeeId);
     Collection<Employee> get(String name);
     Collection<Employee> get(Boolean active);
+    Collection<Employee> getByDepartment(Long id);
     void save(Employee employee);
     void delete(Long id);
     void update(Employee employee);

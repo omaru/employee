@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.inject.Inject;
 
-import static com.omaru.employee.util.EmployeeUtil.getActiveEmployees;
+import static com.omaru.employee.util.MockUtil.getActiveEmployees;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;

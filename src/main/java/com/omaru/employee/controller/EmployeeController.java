@@ -25,6 +25,12 @@ public class EmployeeController {
         Collection<Employee> employees = employeeService.get();
         return employees;
     }
+
+    @RequestMapping(value={"{id}"},method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Employee getEmployee(@PathVariable Long id){
+        return employeeService.get(id);
+    }
+
     @RequestMapping(value={"{id}"},method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteEmployees(@PathVariable Long id){
         employeeService.delete(id);

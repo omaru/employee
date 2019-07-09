@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-import static com.omaru.employee.util.EmployeeUtil.getEmployees;
+import static com.omaru.employee.util.MockUtil.getEmployees;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -27,7 +27,7 @@ public class EmployeeServiceShould {
     private EmployeeService employeeService;
     @Before
     public void setUp(){
-        employeeService = new EmployeeServiceImpl(employeeRepository,departmentRepository);
+        employeeService = new SimpleEmployeeService(employeeRepository,departmentRepository);
         Collection<Employee> employees = getEmployees();
         Consumer<Employee> saveEmployees = e->employeeService.save(e);
         employees.forEach(saveEmployees);

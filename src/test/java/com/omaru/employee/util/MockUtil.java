@@ -9,9 +9,9 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
 
-public final class EmployeeUtil {
+public final class MockUtil {
 
-    private EmployeeUtil() {
+    private MockUtil() {
         throw new IllegalAccessError("utility class");
     }
 
@@ -25,10 +25,15 @@ public final class EmployeeUtil {
                 getEmployee("g",false),
                 getEmployee("h",false)).collect(toSet());
     }
-
+    public static Collection<Department> getDepartments(){
+        return Stream.of(getDepartment("first_department"),
+                getDepartment("second_department"),
+                getDepartment("third_department")).collect(toSet());
+    }
     public static Collection<Employee> getActiveEmployees(){
         return getEmployees().stream().filter(e->e.isActive()).collect(toSet());
     }
+
     private static Employee getEmployee(String name, boolean active){
         Employee employee = getEmployee(name);
         employee.setActive(active);
@@ -37,6 +42,7 @@ public final class EmployeeUtil {
 
     private static Employee getEmployee(String name){
         Employee employee = new Employee(name);
+        employee.setId(1L);
         employee.setActive(true);
         employee.setLastName("lastname");
         employee.setDepartment(getDepartment("department_1"));

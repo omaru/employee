@@ -1,7 +1,6 @@
 package com.omaru.employee.controller;
 
 import com.omaru.employee.domain.service.EmployeeService;
-import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,7 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import javax.inject.Inject;
 
-import static com.omaru.employee.util.EmployeeUtil.getActiveEmployees;
+import static com.omaru.employee.util.MockUtil.getActiveEmployees;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
