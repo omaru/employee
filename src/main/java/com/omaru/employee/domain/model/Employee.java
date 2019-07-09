@@ -1,15 +1,12 @@
 package com.omaru.employee.domain.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="employee")
-@Getter@Setter@NoArgsConstructor@EqualsAndHashCode
+@Getter @Setter @NoArgsConstructor @EqualsAndHashCode
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,4 +20,7 @@ public class Employee {
     private boolean active;
     @ManyToOne
     private Department department;
+    public Employee(String name){
+        this.name = name;
+    }
 }

@@ -8,4 +8,5 @@ import java.util.Collection;
 public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> {
     Iterable<Employee> findByIdIn(Collection<Long> ids);
     Iterable<Employee> findByNameContaining(String name);
+    Collection<Employee> findByActive(boolean active);
 }

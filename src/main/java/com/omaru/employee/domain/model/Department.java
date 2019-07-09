@@ -10,7 +10,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name="department")
-@Getter@Setter@NoArgsConstructor@EqualsAndHashCode
+@Getter @Setter @NoArgsConstructor @EqualsAndHashCode
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
