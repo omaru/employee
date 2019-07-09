@@ -1,6 +1,7 @@
 before_install:
   - chmod +x gradlew
 language: java
+dist: trusty
 jdk:
   - oraclejdk8
 sudo: false
