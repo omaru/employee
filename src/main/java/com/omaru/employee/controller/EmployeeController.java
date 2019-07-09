@@ -9,7 +9,8 @@ import javax.inject.Inject;
 @RestController
 @RequestMapping(value="/employee")
 public class EmployeeController {
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
+
     @Inject
     public EmployeeController(EmployeeService employeeService){
         this.employeeService = employeeService;

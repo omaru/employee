@@ -18,7 +18,7 @@ public class Employee {
     private String lastName;
     @Column(nullable = false)
     private boolean active;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Department department;
     public Employee(String name){
         this.name = name;

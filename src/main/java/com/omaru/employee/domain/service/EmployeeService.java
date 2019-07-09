@@ -6,7 +6,8 @@ import java.util.Collection;
 
 public interface EmployeeService {
     Collection<Employee> get();
-    Collection<Employee> get(boolean active);
+    Employee get(Long employeeId);
+    Collection<Employee> get(Boolean active);
     void save(Employee employee);
     void delete(Employee employee);
     void update(Employee employee);

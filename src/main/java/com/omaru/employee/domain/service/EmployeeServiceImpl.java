@@ -2,26 +2,36 @@ package com.omaru.employee.domain.service;
 
 import com.omaru.employee.domain.exception.NotFoundException;
 import com.omaru.employee.domain.model.Employee;
+import com.omaru.employee.domain.repository.DepartmentRepository;
 import com.omaru.employee.domain.repository.EmployeeRepository;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Collection;
+@Service("employeeService")
+public class EmployeeServiceImpl implements EmployeeService {
 
-public class EmployeServiceImpl implements EmployeeService {
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Inject
-    public EmployeServiceImpl(EmployeeRepository employeeRepository){
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository,DepartmentRepository departmentRepository){
         this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     @Override
     public Collection<Employee> get() {
-        return null;
+        return employeeRepository.findByActive(true);
     }
 
     @Override
-    public Collection<Employee> get(boolean active) {
+    public Employee get(Long employeeId) {
+        return employeeRepository.findByIdAndActiveTrue(employeeId).orElseThrow(()->
+                new NotFoundException("employee "+employeeId+ "not found"));
+    }
+    @Override
+    public Collection<Employee> get(Boolean active) {
         return employeeRepository.findByActive(active);
     }
 

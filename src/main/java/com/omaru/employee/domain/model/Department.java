@@ -20,4 +20,7 @@ public class Department {
     private String name;
     @OneToMany(mappedBy = "department")
     private Collection<Employee> employees;
+    public Department(String name){
+        this.name = name;
+    }
 }
