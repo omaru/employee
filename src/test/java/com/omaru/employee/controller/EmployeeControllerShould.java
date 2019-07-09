@@ -32,7 +32,7 @@ public class EmployeeControllerShould {
     public void beAbleToRetrieveEmployees() throws Exception {
         given(employeeService.get()).willReturn(getActiveEmployees());
         mockMvc.perform(get("/employee/").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andExpect(jsonPath("$[0].name", is("d")));
+                .andExpect(status().isOk()).andExpect(jsonPath("$[0].name", is("b")));
     }
 
     @Test
