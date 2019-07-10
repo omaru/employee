@@ -1,6 +1,7 @@
 package com.omaru.employee.controller;
 
 import com.omaru.employee.domain.service.EmployeeService;
+import com.omaru.employee.resource.EmployeeResource;
 import com.omaru.employee.resource.EmployeeResourceAssembler;
 import com.omaru.employee.util.CommandLineDataIngester;
 import org.junit.Test;
@@ -13,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.inject.Inject;
+
+import java.util.List;
 
 import static com.omaru.employee.util.MockUtil.getEmployeesResources;
 import static org.hamcrest.Matchers.is;
@@ -36,9 +39,12 @@ public class EmployeeControllerShould {
     private CommandLineDataIngester ingester;
     @Test
     public void beAbleToRetrieveEmployees() throws Exception {
-        given(employeeResourceAssembler.toResources(any())).willReturn(getEmployeesResources());
+        List<EmployeeResource> employeeResources = getEmployeesResources();
+        given(employeeResourceAssembler.toResources(any())).willReturn(employeeResources);
+        EmployeeResource employeeResource = employeeResources.get(0);
         mockMvc.perform(get("/employee/").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andExpect(jsonPath("$[0].name", is("b")));
+                .andExpect(status().isOk()).andExpect(jsonPath("$[0].firstName",
+                is(employeeResource.getFirstName())));
     }
 
     @Test

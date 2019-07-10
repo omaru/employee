@@ -34,8 +34,8 @@ public class SimpleEmployeeService implements EmployeeService {
     }
 
     @Override
-    public Collection<Employee> get(String name) {
-        return employeeRepository.findByNameContaining(name);
+    public Collection<Employee> get(String firstName) {
+        return employeeRepository.findByFirstNameContaining(firstName);
     }
 
     @Override

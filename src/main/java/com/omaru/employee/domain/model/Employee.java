@@ -3,6 +3,8 @@ package com.omaru.employee.domain.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Entity
 @Table(name="employee")
@@ -12,15 +14,21 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column
     private Long id;
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false,name="fist_name")
+    private String firstName;
+    @Column(name="middle_initial")
+    private Character middleInitial;
     @Column(nullable = false,name="last_name")
     private String lastName;
+    @Column(nullable=false,name="date_of_birth")
+    private Timestamp dateOfBirth;
+    @Column(nullable = false,name="date_of_employment")
+    private Timestamp dateOfEmployment = new Timestamp(Calendar.getInstance().getTimeInMillis());
     @Column(nullable = false,columnDefinition = "boolean default true")
     private Boolean active=true;
     @ManyToOne(cascade = CascadeType.ALL)
     private Department department;
-    public Employee(String name){
-        this.name = name;
+    public Employee(String firstName){
+        this.firstName = firstName;
     }
 }

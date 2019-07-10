@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface EmployeeService {
     Collection<Employee> get();
     Employee get(Long employeeId);
-    Collection<Employee> get(String name);
+    Collection<Employee> get(String firstName);
     Collection<Employee> get(Boolean active);
     Collection<Employee> getByDepartment(Long id);
     Employee save(Employee employee);

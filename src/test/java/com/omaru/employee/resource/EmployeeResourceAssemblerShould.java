@@ -27,7 +27,7 @@ public class EmployeeResourceAssemblerShould {
     public void retrieveResourceThatContainsNameAndLastName(){
         Employee employee = getEmployees().iterator().next();
         EmployeeResource employeeResource = employeeResourceAssembler.toResource(employee);
-        assertThat(employeeResource.getName()).isEqualTo(employee.getName());
+        assertThat(employeeResource.getFirstName()).isEqualTo(employee.getFirstName());
         assertThat(employeeResource.getLastName()).isEqualTo(employee.getLastName());
     }
 
