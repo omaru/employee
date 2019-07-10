@@ -10,7 +10,7 @@ public interface EmployeeService {
     Collection<Employee> get(String name);
     Collection<Employee> get(Boolean active);
     Collection<Employee> getByDepartment(Long id);
-    void save(Employee employee);
+    Employee save(Employee employee);
     void delete(Long id);
     void update(Employee employee);
 }

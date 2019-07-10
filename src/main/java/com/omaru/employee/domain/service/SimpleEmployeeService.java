@@ -49,8 +49,8 @@ public class SimpleEmployeeService implements EmployeeService {
     }
 
     @Override
-    public void save(Employee employee) {
-        employeeRepository.save(employee);
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
     @Override

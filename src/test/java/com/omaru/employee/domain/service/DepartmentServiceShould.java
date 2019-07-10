@@ -3,10 +3,13 @@ package com.omaru.employee.domain.service;
 import com.omaru.employee.domain.model.Department;
 import com.omaru.employee.domain.model.Employee;
 import com.omaru.employee.domain.repository.DepartmentRepository;
+import com.omaru.employee.util.CommandLineDataIngester;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
@@ -22,6 +25,8 @@ public class DepartmentServiceShould {
     @Inject
     private DepartmentRepository departmentRepository;
     private DepartmentService departmentService;
+    @MockBean
+    private CommandLineDataIngester ingester;
 
     @Before
     public void setUp() {

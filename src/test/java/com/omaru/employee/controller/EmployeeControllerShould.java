@@ -2,6 +2,7 @@ package com.omaru.employee.controller;
 
 import com.omaru.employee.domain.service.EmployeeService;
 import com.omaru.employee.resource.EmployeeResourceAssembler;
+import com.omaru.employee.util.CommandLineDataIngester;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,8 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.inject.Inject;
 
-import static com.omaru.employee.util.MockUtil.getActiveEmployees;
+import static com.omaru.employee.util.MockUtil.getEmployeesResources;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,10 +32,11 @@ public class EmployeeControllerShould {
     private EmployeeService employeeService;
     @MockBean
     private EmployeeResourceAssembler employeeResourceAssembler;
-
+    @MockBean
+    private CommandLineDataIngester ingester;
     @Test
     public void beAbleToRetrieveEmployees() throws Exception {
-        given(employeeService.get()).willReturn(getActiveEmployees());
+        given(employeeResourceAssembler.toResources(any())).willReturn(getEmployeesResources());
         mockMvc.perform(get("/employee/").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andExpect(jsonPath("$[0].name", is("b")));
     }

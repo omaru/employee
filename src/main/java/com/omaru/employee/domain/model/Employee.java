@@ -14,10 +14,10 @@ public class Employee {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false,name="last_name")
     private String lastName;
-    @Column(nullable = false)
-    private boolean active;
+    @Column(nullable = false,columnDefinition = "boolean default true")
+    private Boolean active=true;
     @ManyToOne(cascade = CascadeType.ALL)
     private Department department;
     public Employee(String name){

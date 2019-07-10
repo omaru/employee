@@ -1,0 +1,10 @@
+INSERT INTO department (id,name) values(1,''department a'');
+INSERT INTO department (id,name) values(2,''department b'');
+INSERT INTO department (id,name) values(3,''department c'');
+INSERT INTO employee (id,name,last_name,department_id) values (1,''name a'',''lastname a'',1);
+INSERT INTO employee (id,name,last_name,department_id) values (2,''name b'',''lastname b'',1);
+INSERT INTO employee (id,name,last_name,department_id) values (3,''name c'',''lastname c'',2);
+INSERT INTO employee (id,name,last_name,department_id) values (4,''name d'',''lastname d'',2);
+INSERT INTO employee (id,name,last_name,department_id) values (5,''name e'',''lastname e'',3);
+INSERT INTO employee (id,name,last_name,department_id) values (6,''name f'',''lastname f'',3);
+INSERT INTO employee (id,name,last_name,department_id) values (7,''name g'',''lastname g'',3);
