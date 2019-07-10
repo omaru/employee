@@ -3,6 +3,7 @@ package com.omaru.employee.domain.service;
 import com.omaru.employee.domain.model.Department;
 import com.omaru.employee.domain.model.Employee;
 import com.omaru.employee.domain.repository.DepartmentRepository;
+import com.omaru.employee.domain.repository.EmployeeRepository;
 import com.omaru.employee.util.CommandLineDataIngester;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,13 +25,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DepartmentServiceShould {
     @Inject
     private DepartmentRepository departmentRepository;
+    @Inject
+    private EmployeeRepository employeeRepository;
     private DepartmentService departmentService;
     @MockBean
     private CommandLineDataIngester ingester;
 
     @Before
     public void setUp() {
-        departmentService = new SimpleDepartmentService(departmentRepository);
+        departmentService = new SimpleDepartmentService(departmentRepository,employeeRepository);
         Collection<Department> departments= getDepartments();
         Consumer<Department> saveDepartments= d -> departmentService.save(d);
         departments.forEach(saveDepartments);

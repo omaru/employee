@@ -8,31 +8,36 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 @Entity
-@Table(name="employee")
-@Getter @Setter @NoArgsConstructor @EqualsAndHashCode
+@Table(name = "employee")
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "sequence", sequenceName = "employee_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     @Column
     private Long id;
     @NotNull
-    @Column(nullable = false,name="fist_name")
+    @Column(nullable = false, name = "first_name")
     private String firstName;
-    @Column(name="middle_initial")
+    @Column(name = "middle_initial")
     private Character middleInitial;
     @NotNull
-    @Column(nullable = false,name="last_name")
+    @Column(nullable = false, name = "last_name")
     private String lastName;
     @NotNull
-    @Column(nullable=false,name="date_of_birth")
+    @Column(nullable = false, name = "date_of_birth")
     private Timestamp dateOfBirth;
-    @Column(nullable = false,name="date_of_employment")
+    @Column(nullable = false, name = "date_of_employment")
     private Timestamp dateOfEmployment = new Timestamp(Calendar.getInstance().getTimeInMillis());
-    @Column(nullable = false,columnDefinition = "boolean default true")
-    private Boolean active=true;
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private Boolean active = true;
     @ManyToOne(cascade = CascadeType.ALL)
     private Department department;
-    public Employee(String firstName){
+
+    public Employee(String firstName) {
         this.firstName = firstName;
     }
 }

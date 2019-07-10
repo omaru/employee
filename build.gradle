@@ -69,8 +69,9 @@ asciidoctor {
 check.dependsOn jacocoTestReport
 
 task bootRunDev {
+	description ='runs application in development mode'
 	dependsOn bootRun
 	bootRun.configure {
-		systemProperty "spring.profiles.status", 'dev'
+		systemProperty 'spring.profiles.status', 'dev'
 	}
 }

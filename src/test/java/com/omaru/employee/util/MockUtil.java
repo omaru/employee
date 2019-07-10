@@ -19,7 +19,7 @@ import static java.util.stream.Collectors.toSet;
 
 public final class MockUtil {
     private static final EmployeeResourceAssembler employeeResourceAssembler = new EmployeeResourceAssembler();
-    private static final DepartmentResourceAssembler departmentResourceAssembler = new DepartmentResourceAssembler();
+    private static final DepartmentResourceAssembler departmentResourceAssembler = new DepartmentResourceAssembler(employeeResourceAssembler);
 
     private MockUtil() {
         throw new IllegalAccessError("utility class");
@@ -36,9 +36,9 @@ public final class MockUtil {
                 getEmployee("h",false)).collect(toSet());
     }
     public static Collection<Department> getDepartments(){
-        return Stream.of(getDepartment("first_department"),
-                getDepartment("second_department"),
-                getDepartment("third_department")).collect(toSet());
+        return Stream.of(getDepartment("first_department",1L),
+                getDepartment("second_department",2L),
+                getDepartment("third_department",3L)).collect(toSet());
     }
     public static Collection<Employee> getActiveEmployees(){
         return getEmployees().stream().filter(e->e.getActive()).collect(toSet());
@@ -65,11 +65,13 @@ public final class MockUtil {
         employee.setId(1L);
         employee.setLastName("lastname");
         employee.setDateOfBirth(new Timestamp(Calendar.getInstance().getTimeInMillis()));
-        employee.setDepartment(getDepartment("department_1"));
+        employee.setDepartment(getDepartment("department_1",1L));
         return employee;
     }
 
-    private static Department getDepartment(String name){
-        return new Department(name);
+    private static Department getDepartment(String name,Long id){
+        Department department = new Department(name);
+        department.setId(id);
+        return department;
     }
 }

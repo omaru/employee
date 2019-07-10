@@ -65,6 +65,9 @@ public class SimpleEmployeeService implements EmployeeService {
 
     @Override
     public void update(Employee employee) {
+        if(employee.getDepartment() != null){
+            employee.setDepartment(departmentRepository.findById(employee.getDepartment().getId()).get());
+        }
         employeeRepository.save(employee);
     }
 }

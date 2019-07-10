@@ -18,8 +18,10 @@ public class EmployeeResourceAssembler extends ResourceAssemblerSupport<Employee
     public EmployeeResource toResource(Employee employee) {
         EmployeeResource resource = new EmployeeResource(employee);
         resource.add(linkTo(methodOn(EmployeeController.class).getEmployee(employee.getId())).withSelfRel());
-        resource.add(linkTo(methodOn(DepartmentController.class)
-                .getDepartment(employee.getDepartment().getId())).withRel("department"));
+        if(employee.getDepartment() != null){
+            resource.add(linkTo(methodOn(DepartmentController.class)
+                    .getDepartment(employee.getDepartment().getId())).withRel("department"));
+        }
         return resource;
     }
 }

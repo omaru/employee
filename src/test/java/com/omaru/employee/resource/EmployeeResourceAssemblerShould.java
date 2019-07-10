@@ -38,4 +38,11 @@ public class EmployeeResourceAssemblerShould {
         assertThat(employeeResource.getLink("department").getHref()).contains("/department/"+
                 employee.getDepartment().getId());
     }
+    @Test
+    public void whenEmployeeHasNoDepartmentReturnWithouthDepartmentRelation(){
+        Employee employee = getEmployees().iterator().next();
+        employee.setDepartment(null);
+        EmployeeResource employeeResource = employeeResourceAssembler.toResource(employee);
+        assertThat(employeeResource.getLink("department")).isNull();
+    }
 }

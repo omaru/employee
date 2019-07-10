@@ -13,9 +13,10 @@ import java.util.Collection;
 @Getter @Setter @NoArgsConstructor @EqualsAndHashCode
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name="sequence", sequenceName="department_sequence", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence")
     @Column
-    private long id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @OneToMany(mappedBy = "department")

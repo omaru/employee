@@ -26,7 +26,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        args = new String[]{"i","~/data.sql"};
+        args = new String[]{"-i","/home/oesparza/data.sql"};
         dataIngester.accept(args);
     }
 
