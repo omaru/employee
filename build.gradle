@@ -2,6 +2,7 @@ plugins {
 	id 'org.asciidoctor.convert' version '1.5.3'
 	id 'org.springframework.boot' version '2.1.6.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -44,6 +45,11 @@ dependencies {
 
 test {
 	outputs.dir snippetsDir
+}
+
+jacoco {
+	toolVersion = "0.8.4"
+	reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
 jacocoTestReport {
