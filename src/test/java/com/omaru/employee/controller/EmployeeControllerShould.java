@@ -21,6 +21,7 @@ import java.util.List;
 import static com.omaru.employee.util.MockUtil.*;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -62,16 +63,19 @@ public class EmployeeControllerShould {
     @Test
     public void beAbleToCreateAnEmployee() throws Exception {
         Employee employee = getEmployee("created employee");
-        given(employeeResourceAssembler.toResource(any())).willReturn(getAsResource(employee));
+        given(employeeService.save(any())).willReturn(employee);
+        EmployeeResource resource = getAsResource(employee);
+        given(employeeResourceAssembler.toResource(any())).willReturn(resource);
         mockMvc.perform(post("/employee/").content(objectMapper.writeValueAsString(employee))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("firstName",is(employee.getFirstName())));
+                .andExpect(jsonPath("_links.employee.href",containsString("/employee/1")));
     }
 
     @Test
     public void whenInvalidEmployeeCreationRetrieveConflictStatus() throws Exception {
         Employee employee = getEmployee("created employee");
+        employee.setDateOfBirth(null);
         given(employeeResourceAssembler.toResource(any())).willReturn(getAsResource(employee));
         mockMvc.perform(post("/employee/").content(objectMapper.writeValueAsString(employee))
                 .contentType(MediaType.APPLICATION_JSON))
