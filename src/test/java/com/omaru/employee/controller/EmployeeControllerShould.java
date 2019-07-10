@@ -1,6 +1,7 @@
 package com.omaru.employee.controller;
 
 import com.omaru.employee.domain.service.EmployeeService;
+import com.omaru.employee.resource.EmployeeResourceAssembler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,6 +28,8 @@ public class EmployeeControllerShould {
     private MockMvc mockMvc;
     @MockBean
     private EmployeeService employeeService;
+    @MockBean
+    private EmployeeResourceAssembler employeeResourceAssembler;
 
     @Test
     public void beAbleToRetrieveEmployees() throws Exception {
