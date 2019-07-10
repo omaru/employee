@@ -3,6 +3,7 @@ package com.omaru.employee.domain.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
@@ -14,12 +15,15 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column
     private Long id;
+    @NotNull
     @Column(nullable = false,name="fist_name")
     private String firstName;
     @Column(name="middle_initial")
     private Character middleInitial;
+    @NotNull
     @Column(nullable = false,name="last_name")
     private String lastName;
+    @NotNull
     @Column(nullable=false,name="date_of_birth")
     private Timestamp dateOfBirth;
     @Column(nullable = false,name="date_of_employment")

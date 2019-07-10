@@ -7,7 +7,9 @@ import com.omaru.employee.resource.DepartmentResourceAssembler;
 import com.omaru.employee.resource.EmployeeResource;
 import com.omaru.employee.resource.EmployeeResourceAssembler;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,11 +57,14 @@ public final class MockUtil {
     public static List<EmployeeResource> getEmployeesResources(){
         return employeeResourceAssembler.toResources(getActiveEmployees());
     }
-
+    public static EmployeeResource getAsResource(Employee employee){
+        return employeeResourceAssembler.toResource(employee);
+    }
     public static Employee getEmployee(String name){
         Employee employee = new Employee(name);
         employee.setId(1L);
         employee.setLastName("lastname");
+        employee.setDateOfBirth(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         employee.setDepartment(getDepartment("department_1"));
         return employee;
     }

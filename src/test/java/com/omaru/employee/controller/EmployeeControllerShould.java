@@ -1,5 +1,7 @@
 package com.omaru.employee.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omaru.employee.domain.model.Employee;
 import com.omaru.employee.domain.service.EmployeeService;
 import com.omaru.employee.resource.EmployeeResource;
 import com.omaru.employee.resource.EmployeeResourceAssembler;
@@ -14,15 +16,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.inject.Inject;
-
 import java.util.List;
 
-import static com.omaru.employee.util.MockUtil.getEmployeesResources;
+import static com.omaru.employee.util.MockUtil.*;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,12 +31,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EmployeeControllerShould {
     @Inject
     private MockMvc mockMvc;
+    @Inject
+    private ObjectMapper objectMapper;
     @MockBean
     private EmployeeService employeeService;
     @MockBean
     private EmployeeResourceAssembler employeeResourceAssembler;
     @MockBean
     private CommandLineDataIngester ingester;
+
     @Test
     public void beAbleToRetrieveEmployees() throws Exception {
         List<EmployeeResource> employeeResources = getEmployeesResources();
@@ -45,6 +48,42 @@ public class EmployeeControllerShould {
         mockMvc.perform(get("/employee/").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andExpect(jsonPath("$[0].firstName",
                 is(employeeResource.getFirstName())));
+    }
+
+    @Test
+    public void beAbleToRetrieveEmployeeById() throws Exception {
+        EmployeeResource employeeResource = getEmployeesResources().get(0);
+        given(employeeResourceAssembler.toResource(any())).willReturn(employeeResource);
+        mockMvc.perform(get("/employee/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andExpect(jsonPath("firstName",
+                is(employeeResource.getFirstName())));
+    }
+
+    @Test
+    public void beAbleToCreateAnEmployee() throws Exception {
+        Employee employee = getEmployee("created employee");
+        given(employeeResourceAssembler.toResource(any())).willReturn(getAsResource(employee));
+        mockMvc.perform(post("/employee/").content(objectMapper.writeValueAsString(employee))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("firstName",is(employee.getFirstName())));
+    }
+
+    @Test
+    public void whenInvalidEmployeeCreationRetrieveConflictStatus() throws Exception {
+        Employee employee = getEmployee("created employee");
+        given(employeeResourceAssembler.toResource(any())).willReturn(getAsResource(employee));
+        mockMvc.perform(post("/employee/").content(objectMapper.writeValueAsString(employee))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void beAbleToUpdateAnExistentEmployee() throws Exception {
+        Employee employee = getEmployee("created employee");
+        mockMvc.perform(put("/employee/1").content(objectMapper.writeValueAsString(employee))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 
     @Test
