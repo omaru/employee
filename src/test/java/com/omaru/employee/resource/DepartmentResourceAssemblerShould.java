@@ -7,7 +7,7 @@ import static com.omaru.employee.util.MockUtil.getEmployees;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DepartmentResourceAssemblerShould {
-    private DepartmentResourceAssembler departmentResourceAssembler = new DepartmentResourceAssembler(new EmployeeResourceAssembler());
+    private final DepartmentResourceAssembler departmentResourceAssembler = new DepartmentResourceAssembler(new EmployeeResourceAssembler());
 
     @Test
     public void retrieveEmployeeResourceForGivenDepartment(){

@@ -12,7 +12,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Component
 public class DepartmentResourceAssembler extends ResourceAssemblerSupport<Department, DepartmentResource> {
-    private EmployeeResourceAssembler employeeResourceAssembler;
+    private final EmployeeResourceAssembler employeeResourceAssembler;
     public DepartmentResourceAssembler(EmployeeResourceAssembler employeeResourceAssembler) {
         super(DepartmentController.class, DepartmentResource.class);
         this.employeeResourceAssembler = employeeResourceAssembler;

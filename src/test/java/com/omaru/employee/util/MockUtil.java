@@ -8,11 +8,9 @@ import com.omaru.employee.resource.EmployeeResource;
 import com.omaru.employee.resource.EmployeeResourceAssembler;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
@@ -40,8 +38,8 @@ public final class MockUtil {
                 getDepartment("second_department",2L),
                 getDepartment("third_department",3L)).collect(toSet());
     }
-    public static Collection<Employee> getActiveEmployees(){
-        return getEmployees().stream().filter(e->e.getActive()).collect(toSet());
+    private static Collection<Employee> getActiveEmployees(){
+        return getEmployees().stream().filter(Employee::getActive).collect(toSet());
     }
 
     private static Employee getEmployee(String name, boolean active){

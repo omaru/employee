@@ -6,7 +6,6 @@ import com.omaru.employee.resource.EmployeeResource;
 import com.omaru.employee.resource.EmployeeResourceAssembler;
 import com.omaru.employee.resource.MainNavigationResource;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +43,9 @@ public class EmployeeController {
     }
 
     @RequestMapping(method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResourceSupport> saveEmployee(@RequestBody @Valid Employee employee, BindingResult result){
+    public ResponseEntity<?> saveEmployee(@RequestBody @Valid Employee employee, BindingResult result){
         if(result.hasErrors()){
-            return new ResponseEntity(result.getAllErrors(),HttpStatus.CONFLICT);
+            return new ResponseEntity<>(result.getAllErrors(),HttpStatus.CONFLICT);
         }
         employee = employeeService.save(employee);
         ResourceSupport support = new ResourceSupport();

@@ -16,13 +16,17 @@ import javax.inject.Inject;
 @SpringBootApplication
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class Application implements CommandLineRunner {
+    private final CommandLineDataIngester dataIngester;
+
+    @Inject
+    public Application(CommandLineDataIngester dataIngester) {
+        this.dataIngester = dataIngester;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-    @Inject
-    private CommandLineDataIngester dataIngester;
 
     @Override
     public void run(String... args) throws Exception {

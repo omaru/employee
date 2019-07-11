@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmployeeResourceAssemblerShould {
 
-    private EmployeeResourceAssembler employeeResourceAssembler = new EmployeeResourceAssembler();
+    private final EmployeeResourceAssembler employeeResourceAssembler = new EmployeeResourceAssembler();
 
     @Test
     public void retrieveEmployeeResourceForGivenEmployee(){
@@ -39,7 +39,7 @@ public class EmployeeResourceAssemblerShould {
                 employee.getDepartment().getId());
     }
     @Test
-    public void whenEmployeeHasNoDepartmentReturnWithouthDepartmentRelation(){
+    public void whenEmployeeHasNoDepartmentReturnWithoutDepartmentRelation(){
         Employee employee = getEmployees().iterator().next();
         employee.setDepartment(null);
         EmployeeResource employeeResource = employeeResourceAssembler.toResource(employee);

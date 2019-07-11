@@ -17,7 +17,7 @@ import static org.apache.logging.log4j.util.Strings.isNotBlank;
 
 @Component
 public class CommandLineDataIngester {
-    private DataSource dataSource;
+    private final DataSource dataSource;
     private static final String DEFAULT_SCRIPT="data-sample.sql";
     @Inject
     public CommandLineDataIngester(DataSource dataSource){

@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static com.omaru.employee.util.MockUtil.getEmployee;
 import static com.omaru.employee.util.MockUtil.getEmployees;
@@ -59,15 +58,13 @@ public class EmployeeServiceShould {
 
     @Test
     public void beAbleToRetrieveEmployeesByInactiveStatus(){
-        Boolean activeEmployees = false;
-        Collection<Employee> employees = employeeService.get(activeEmployees);
+        Collection<Employee> employees = employeeService.get(false);
         assertThat(employees).hasSize(3);
     }
     @Test
     public void beAbleToRetrieveEmployeesByName(){
-        Boolean activeEmployees = false;
-        Collection<Employee> employees = employeeService.get(activeEmployees);
-        assertThat(employees).hasSize(3);
+        Collection<Employee> employees = employeeService.get("a");
+        assertThat(employees).hasSize(1);
     }
     @Test(expected = NotFoundException.class)
     public void whenNoEmployeeFoundThrowNotFoundException(){

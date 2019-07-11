@@ -45,7 +45,8 @@ public class SimpleEmployeeService implements EmployeeService {
 
     @Override
     public Collection<Employee> getByDepartment(Long id) {
-        return departmentRepository.findById(id).get().getEmployees();
+        return departmentRepository.findById(id).orElseThrow(()->
+                new NotFoundException("Department not found")).getEmployees();
     }
 
     @Override
