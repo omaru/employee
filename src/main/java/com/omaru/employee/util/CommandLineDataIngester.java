@@ -39,8 +39,10 @@ public class CommandLineDataIngester {
         ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
         if(fileRoute.isPresent()){
             scriptRunner.runScript(new BufferedReader(new FileReader(fileRoute.get())));
+        }else{
+            scriptRunner.runScript(new BufferedReader
+                    (new InputStreamReader(resource.getInputStream())));
         }
-        scriptRunner.runScript(new BufferedReader(new InputStreamReader(resource.getInputStream())));
     }
 
     private Optional<String> getFileRoute(CommandLine cmd) {
