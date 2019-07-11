@@ -21,6 +21,9 @@
 - h2
 - assertj
 - lombok
+- travis
+- codecov
+- codeclimate
 
 #### Data Ingestion
 To ingest data provide the param `-i` followed by the `sql` file `path`
