@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static com.omaru.employee.util.MockUtil.getEmployee;
 import static com.omaru.employee.util.MockUtil.getEmployees;
@@ -34,8 +35,8 @@ public class EmployeeServiceShould {
     public void setUp(){
         employeeService = new SimpleEmployeeService(employeeRepository,departmentRepository);
         Collection<Employee> employees = getEmployees();
-        Consumer<Employee> saveEmployees = e->employeeService.save(e);
-        employees.forEach(saveEmployees);
+        Consumer<Employee> saveEmployees = e->{e.setId(null);e.setDepartment(null);employeeService.save(e);};
+        employees.stream().peek(e->System.out.println("employee e"+e.getId()+" "+e.getFirstName())).forEach(saveEmployees);
     }
 
     @Test

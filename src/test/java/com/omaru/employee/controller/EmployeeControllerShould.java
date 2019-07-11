@@ -1,6 +1,7 @@
 package com.omaru.employee.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omaru.employee.domain.exception.NotFoundException;
 import com.omaru.employee.domain.model.Employee;
 import com.omaru.employee.domain.service.EmployeeService;
 import com.omaru.employee.resource.EmployeeResource;
@@ -22,6 +23,7 @@ import static com.omaru.employee.util.MockUtil.*;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -96,6 +98,13 @@ public class EmployeeControllerShould {
                 .andExpect(status().isUnauthorized());
         mockMvc.perform(delete("/employee/").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void onUnexistentEmployeeReturnNotFoundResponse() throws Exception {
+        given(employeeService.get(anyLong())).willThrow(new NotFoundException("user not found"));
+        mockMvc.perform(get("/employee/-4").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test

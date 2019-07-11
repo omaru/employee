@@ -26,7 +26,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        args = new String[]{"-i","/home/oesparza/data.sql"};
         dataIngester.accept(args);
     }
 
@@ -37,7 +36,7 @@ public class Application implements CommandLineRunner {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
-                    .antMatchers(HttpMethod.DELETE, "/employee/*")
+                    .antMatchers(HttpMethod.DELETE, "/employee/**")
                     .authenticated()
                     .and()
                     .csrf().disable()
