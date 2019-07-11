@@ -13,6 +13,15 @@
 ```bash
 ./gradlew  build
 ``` 
+#### Tooling
+- gradle
+- spring (test,security,rest,hateoas,data,jpa)
+- commons-cli
+- ibatis
+- h2
+- assertj
+- lombok
+
 #### Data Ingestion
 To ingest data provide the param `-i` followed by the `sql` file `path`
 `java -jar $PROJECTNAME.jar -i /sample/path.sql`
