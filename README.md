@@ -27,6 +27,7 @@ To ingest data provide the param `-i` followed by the `sql` file `path`
 `java -jar $PROJECTNAME.jar -i /sample/path.sql`
 If no option is provided , data is populated from `sample-data.sql` 
 located in  `resources` folder.
+![data](https://user-images.githubusercontent.com/877539/61019260-c3dbfd00-a356-11e9-995d-313b76ea051b.gif)
 #### CRUD Operations
 ##### Get Employees
 ![get_all](https://user-images.githubusercontent.com/877539/61017285-d9015d80-a34f-11e9-9c3d-331d615fb35b.gif)
