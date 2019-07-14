@@ -3,7 +3,8 @@ pipeline{
 	stages{
 		stage('initialization'){
 			steps{
-				sh 'echo "environment variables:" ${env}'
+				sh 'echo "environment variables:" '
+				echo sh(returnStdout: true, script: 'env')
 			}
 		}
 		stage('build'){
